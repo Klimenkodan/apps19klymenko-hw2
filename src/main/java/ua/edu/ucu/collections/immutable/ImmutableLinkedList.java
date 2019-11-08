@@ -1,7 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class ImmutableLinkedList implements ImmutableList{
