@@ -3,9 +3,9 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ImmutableLinkedList implements ImmutableList{
+public class ImmutableLinkedList implements ImmutableList {
     private Node head;
-    private HashMap<Object,Object> links;
+    private HashMap<Object, Object> links;
     private int size;
     private Node tail;
 
@@ -26,24 +26,24 @@ public class ImmutableLinkedList implements ImmutableList{
 
     }
 
-    public ImmutableLinkedList(Object [] array) {
+    public ImmutableLinkedList(Object[] array) {
         links = new HashMap<>();
         head = new Node(array[0]);
         links.put(head, null);
-        Node new_head = head;
-        size ++;
-        for (int i=1; i < array.length; i++) {
+        Node newHead = head;
+        size++;
+        for (int i = 1; i < array.length; i++) {
             Node node = new Node(array[i]);
-            links.put(new_head, node);
-            new_head = node;
-            size ++;
+            links.put(newHead, node);
+            newHead = node;
+            size++;
         }
-        links.put(new_head, null);
-        tail = new_head;
+        links.put(newHead, null);
+        tail = newHead;
     }
 
 
-    private ImmutableLinkedList copy_inf() {
+    private ImmutableLinkedList copyInf() {
         ImmutableLinkedList list = new ImmutableLinkedList();
         @SuppressWarnings("unchecked")
         HashMap<Object, Object> map = (HashMap<Object, Object>) links.clone();
@@ -56,14 +56,14 @@ public class ImmutableLinkedList implements ImmutableList{
 
     public ImmutableLinkedList add(Object e) {
         if (isEmpty()) {
-            return new ImmutableLinkedList(new Object[] {e});
+            return new ImmutableLinkedList(new Object[]{e});
         }
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         Node el = new Node(e);
         list.links.put(tail, el);
         list.links.put(el, null);
         list.tail = el;
-        list.size ++;
+        list.size++;
         return list;
     }
 
@@ -75,7 +75,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
     public ImmutableLinkedList add(int index, Object e) {
         checkIndex(index);
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         if (index == 0) {
             return list.addFirst(e);
         }
@@ -83,13 +83,13 @@ public class ImmutableLinkedList implements ImmutableList{
         Node el = new Node(e);
         list.links.put(el, links.get(node));
         list.links.put(node, el);
-        list.size ++;
+        list.size++;
         return list;
     }
 
     public ImmutableLinkedList addAll(Object[] c) {
-        ImmutableLinkedList list = this.copy_inf();
-        for (int i=0; i < c.length; i++) {
+        ImmutableLinkedList list = this.copyInf();
+        for (int i = 0; i < c.length; i++) {
             list = list.add(c[i]);
         }
         return list;
@@ -97,8 +97,8 @@ public class ImmutableLinkedList implements ImmutableList{
 
     public ImmutableLinkedList addAll(int index, Object[] c) {
         checkIndex(index);
-        ImmutableLinkedList list = this.copy_inf();
-        for (int i=0; i < c.length; i++) {
+        ImmutableLinkedList list = this.copyInf();
+        for (int i = 0; i < c.length; i++) {
             list = list.add(index + i, c[i]);
         }
 
@@ -125,24 +125,24 @@ public class ImmutableLinkedList implements ImmutableList{
 
     public ImmutableLinkedList remove(int index) {
         checkIndex(index);
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         Node node = (Node) get(index - 1, 1);
         list.links.put(node, links.get(links.get(node)));
         list.links.remove(links.get(node));
-        list.size --;
+        list.size--;
         return list;
     }
 
     public ImmutableLinkedList set(int index, Object e) {
         checkIndex(index);
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         ((Node) get(index, 1)).data = e;
         return list;
     }
 
     public int indexOf(Object e) {
         Node currentNode = head;
-        for (int i=0; i < size() - 1; i++) {
+        for (int i = 0; i < size() - 1; i++) {
             if (currentNode.data == e) {
                 return i;
             }
@@ -166,7 +166,7 @@ public class ImmutableLinkedList implements ImmutableList{
     public Object[] toArray() {
         Object[] arr = new Object[size()];
         Node currentNode = head;
-        for (int i=0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             arr[i] = currentNode.data;
             currentNode = (Node) links.get(currentNode);
         }
@@ -183,11 +183,11 @@ public class ImmutableLinkedList implements ImmutableList{
 
 
     public ImmutableLinkedList addFirst(Object e) {
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         Node node = new Node(e);
         list.head = node;
         list.links.put(node, head);
-        list.size ++;
+        list.size++;
         return list;
     }
 
@@ -204,20 +204,20 @@ public class ImmutableLinkedList implements ImmutableList{
     }
 
     public ImmutableLinkedList removeFirst() {
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         list.head = (Node) links.get(head);
         list.links.remove(head);
-        list.size --;
+        list.size--;
         return list;
     }
 
     public ImmutableLinkedList removeLast() {
-        ImmutableLinkedList list = copy_inf();
+        ImmutableLinkedList list = copyInf();
         Node node = (Node) get(size() - 2, 1);
         links.put(node, null);
         links.remove(links.get(node));
         list.tail = node;
-        list.size --;
+        list.size--;
         return list;
     }
 }

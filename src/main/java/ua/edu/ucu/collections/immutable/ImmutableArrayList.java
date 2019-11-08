@@ -113,7 +113,7 @@ public final class ImmutableArrayList implements ImmutableList{
         if (isEmpty()) {
             return "[]";
         }
-        return Arrays.toString(arr).substring(1, 3);
+        return Arrays.toString(toArray());
     }
 }
 
