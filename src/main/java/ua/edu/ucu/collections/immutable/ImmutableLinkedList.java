@@ -125,6 +125,9 @@ public class ImmutableLinkedList implements ImmutableList {
 
     public ImmutableLinkedList remove(int index) {
         checkIndex(index);
+        if (size() == 1) {
+            return clear();
+        }
         ImmutableLinkedList list = copyInf();
         Node node = (Node) get(index - 1, 1);
         list.links.put(node, links.get(links.get(node)));
@@ -214,8 +217,8 @@ public class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList removeLast() {
         ImmutableLinkedList list = copyInf();
         Node node = (Node) get(size() - 2, 1);
-        links.put(node, null);
-        links.remove(links.get(node));
+        list.links.put(node, null);
+        list.links.remove(links.get(node));
         list.tail = node;
         list.size--;
         return list;
