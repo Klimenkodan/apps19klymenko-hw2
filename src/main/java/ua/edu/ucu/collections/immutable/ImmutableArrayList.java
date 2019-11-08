@@ -2,16 +2,15 @@ package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
 
-public final class ImmutableArrayList implements ImmutableList{
+public final class ImmutableArrayList implements ImmutableList {
     private Object[] arr;
 
     ImmutableArrayList() {
 
-        arr = new Object[] {};
+        arr = new Object[]{};
     }
 
-    private ImmutableArrayList(ImmutableArrayList array, int flag)
-    {
+    private ImmutableArrayList(ImmutableArrayList array, int flag) {
         arr = Arrays.copyOf(array.arr, array.size() + flag);
     }
 
@@ -19,11 +18,12 @@ public final class ImmutableArrayList implements ImmutableList{
         return arr.length;
     }
 
-    public ImmutableList clear() { return new ImmutableArrayList();
+    public ImmutableList clear() {
+        return new ImmutableArrayList();
     }
 
     public int indexOf(Object e) {
-        for (int i=0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             if (arr[i] == e) {
                 return i;
             }
@@ -44,7 +44,7 @@ public final class ImmutableArrayList implements ImmutableList{
     }
 
     private void checkIndex(int index) {
-        if (0 > index || index  < size()) {
+        if (0 > index || index < size()) {
             throw new IndexOutOfBoundsException();
         }
     }
@@ -53,11 +53,11 @@ public final class ImmutableArrayList implements ImmutableList{
     public ImmutableList add(int index, Object e) {
         checkIndex(index);
         ImmutableArrayList list = new ImmutableArrayList(this, 1);
-        for (int i=0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             list.arr[i] = arr[i];
         }
         list.arr[index] = e;
-        for (int i=index; i < arr.length; i++) {
+        for (int i = index; i < arr.length; i++) {
             list.arr[i + 1] = arr[i];
         }
         return list;
@@ -71,11 +71,11 @@ public final class ImmutableArrayList implements ImmutableList{
         checkIndex(index);
 
         ImmutableArrayList array = new ImmutableArrayList();
-        for (int i=0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             array = (ImmutableArrayList) array.add(arr[i]);
         }
 
-        for (int i=index ; i < index + c.length; i++) {
+        for (int i = index; i < index + c.length; i++) {
             array = (ImmutableArrayList) array.add(c[i]);
         }
 
@@ -93,7 +93,7 @@ public final class ImmutableArrayList implements ImmutableList{
     public ImmutableList remove(int index) {
         checkIndex(index);
         ImmutableArrayList lst = new ImmutableArrayList();
-        for (int i= 0; i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             if (i != index) {
                 lst = (ImmutableArrayList) lst.add(arr[i]);
             }

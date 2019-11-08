@@ -20,9 +20,7 @@ public class ImmutableArrayListTest {
     @Test
     public void test_clear() {
         ImmutableList list1 = list.add(1);
-        System.out.println(Arrays.toString(list1.toArray()) + " " + list1.size());
         ImmutableList list2 = list1.clear();
-        System.out.println(Arrays.toString(list2.toArray()));
         assertArrayEquals(list2.toArray(), new Object[] {});
     }
     @Test
