@@ -68,7 +68,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     }
 
     private void checkIndex(int index) {
-        if (index < 0 || index > size() - 1) {
+        if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
     }
@@ -78,6 +78,9 @@ public final class ImmutableLinkedList implements ImmutableList {
         ImmutableLinkedList list = copyInf();
         if (index == 0) {
             return list.addFirst(e);
+        }
+        else if (index == size) {
+            return list.add(e);
         }
         Node node = (Node) get(index - 1, 1);
         Node el = new Node(e);
