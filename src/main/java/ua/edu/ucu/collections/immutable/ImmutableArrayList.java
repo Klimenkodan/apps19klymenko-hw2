@@ -24,7 +24,7 @@ public final class ImmutableArrayList implements ImmutableList {
 
     public int indexOf(Object e) {
         for (int i = 0; i < size(); i++) {
-            if (arr[i] == e) {
+            if (arr[i].equals(e)) {
                 return i;
             }
         }
@@ -53,6 +53,10 @@ public final class ImmutableArrayList implements ImmutableList {
     public ImmutableArrayList add(int index, Object e) {
         checkIndex(index);
         ImmutableArrayList list = new ImmutableArrayList(this, 1);
+        if (index == size) {
+            list.add(e);
+            return list;
+        } 
         for (int i = 0; i < index; i++) {
             list.arr[i] = arr[i];
         }
