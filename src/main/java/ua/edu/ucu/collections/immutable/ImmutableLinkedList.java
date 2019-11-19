@@ -3,7 +3,7 @@ package ua.edu.ucu.collections.immutable;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ImmutableLinkedList implements ImmutableList {
+public final class ImmutableLinkedList implements ImmutableList {
     private Node head;
     private HashMap<Object, Object> links;
     private int size;
@@ -146,7 +146,7 @@ public class ImmutableLinkedList implements ImmutableList {
     public int indexOf(Object e) {
         Node currentNode = head;
         for (int i = 0; i < size() - 1; i++) {
-            if (currentNode.data == e) {
+            if (currentNode.data.equals(e)) {
                 return i;
             }
             currentNode = (Node) links.get(currentNode);
